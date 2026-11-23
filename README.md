@@ -68,4 +68,3 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the dependency rule and whe
 | `BULK_MAX_ROWS` | `50000` | max rows in one bulk analysis |
 | `MAX_FILES` | `20` | max files in one bulk analysis |
 
-Note: the default multilingual model is licensed CC BY-NC 4.0 (non-commercial use).
