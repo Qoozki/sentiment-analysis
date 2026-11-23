@@ -1,0 +1,151 @@
+﻿review_id,date,product,channel,country,rating,true_sentiment,review
+R0151,2026-09-01,Monitor,Store,AE,3,neutral,"Decent monitor, colours are average out of the box."
+R0152,2026-09-01,Webcam,Online,JO,3,neutral,اشتريت كاميرا الويب والنتيجة عادية، لا شيء مميز
+R0153,2026-09-02,Headphones,Online,AE,5,positive,والله المنتج حلو كتير وسعره منيح
+R0154,2026-09-02,Keyboard,Online,UK,2,negative,The wireless receiver drops out constantly. Support never replied.
+R0155,2026-09-02,Monitor,Online,JO,1,negative,"Backlight bleed is awful, I am returning it."
+R0156,2026-09-03,Headphones,Online,JO,4,positive,"Noise cancelling is excellent, perfect for my commute. Packaging was great too."
+R0157,2026-09-03,Headphones,Online,UK,4,positive,The sound is crisp and the battery lasts for days. Love them. Arrived earlier than expected.
+R0158,2026-09-03,Monitor,Online,MX,5,positive,"Envío rápido y todo llegó perfecto, muy satisfecho."
+R0159,2026-09-03,Laptop Stand,Online,UK,3,neutral,"Okay stand, slightly smaller than I expected."
+R0160,2026-09-03,Webcam,Online,EG,5,positive,فاق توقعاتي بكثير، سأشتري مرة أخرى بالتأكيد
+R0161,2026-09-04,Keyboard,Online,UK,4,positive,"Typing feels fantastic, the keys are quiet and responsive. Arrived earlier than expected."
+R0162,2026-09-04,Keyboard,Store,UK,4,positive,"Excellent value, my typing has honestly improved. Packaging was great too."
+R0163,2026-09-04,Monitor,Online,AE,5,positive,التوصيل كان سريعا والمنتج مطابق للوصف، شكرا لكم
+R0164,2026-09-05,Headphones,Online,EG,5,positive,منتج ممتاز وخدمة عملاء محترمة وسريعة
+R0165,2026-09-05,Headphones,Online,AE,4,positive,The sound is crisp and the battery lasts for days. Love them.
+R0166,2026-09-05,Keyboard,Store,FR,5,positive,"Je recommande vivement le clavier, qualité au rendez-vous."
+R0167,2026-09-05,Webcam,Online,JO,5,positive,Autofocus is fast and the microphone is clear.
+R0168,2026-09-06,Headphones,Online,JO,5,positive,"Bass is deep and clear, and pairing was instant. Arrived earlier than expected."
+R0169,2026-09-06,Keyboard,Online,UK,2,negative,"Keys keep double-typing, unusable for work. Packaging was crushed."
+R0170,2026-09-06,Monitor,Online,US,4,positive,"Perfect for work and gaming, no ghosting at all."
+R0171,2026-09-06,Laptop Stand,Store,JO,5,positive,"Great stand, it keeps my laptop cool."
+R0172,2026-09-07,Headphones,Online,UK,5,positive,The sound is crisp and the battery lasts for days. Love them.
+R0173,2026-09-07,Headphones,Online,US,1,negative,"Battery barely lasts three hours, nothing like advertised. Support never replied."
+R0174,2026-09-07,Keyboard,Online,US,3,neutral,Keys are a bit noisy but it works fine.
+R0175,2026-09-07,Webcam,Online,AE,1,negative,Constant lag and the image looks washed out. Packaging was crushed.
+R0176,2026-09-07,Webcam,Online,JO,5,positive,والله المنتج حلو كتير وسعره منيح
+R0177,2026-09-08,Monitor,Online,AE,3,neutral,لا بأس به مقابل السعر، لا أكثر
+R0178,2026-09-08,Monitor,Online,ES,4,positive,"Excelente relación calidad-precio, ¡me encanta!"
+R0179,2026-09-08,Webcam,Store,JO,1,negative,Arrived with a cracked lens and awful packaging.
+R0180,2026-09-08,Webcam,Online,UK,3,neutral,Image is okay in daylight but weak at night.
+R0181,2026-09-08,Webcam,Online,JO,1,negative,Do not buy. Waste of money. I will not buy from this shop again.
+R0182,2026-09-09,Headphones,Online,US,1,negative,"Stopped working after two weeks, very disappointed. Support never replied."
+R0183,2026-09-09,Laptop Stand,Online,BE,3,neutral,"Produit moyen, rien d'exceptionnel mais ça marche."
+R0184,2026-09-10,Keyboard,Online,JO,3,neutral,Keys are a bit noisy but it works fine.
+R0185,2026-09-10,Monitor,Online,AE,3,neutral,"It works, nothing more to say."
+R0186,2026-09-10,Monitor,Online,US,5,positive,Setup took two minutes and the image quality is superb. Arrived earlier than expected.
+R0187,2026-09-10,Laptop Stand,Store,UK,4,positive,"Sturdy, folds flat, and my neck pain is gone. Support answered within an hour."
+R0188,2026-09-11,Headphones,Store,UK,1,negative,The left earcup stopped working after two weeks. Terrible quality. I will not buy from this shop again.
+R0189,2026-09-11,Keyboard,Online,JO,3,neutral,Keys are a bit noisy but it works fine.
+R0190,2026-09-11,Monitor,Online,JO,5,positive,"Fantastic monitor for the price, and the stand is sturdy. Arrived earlier than expected."
+R0191,2026-09-11,Laptop Stand,Online,US,3,neutral,"It is okay, does what it says."
+R0192,2026-09-11,Laptop Stand,Online,MX,3,neutral,"Cumple su función, nada del otro mundo."
+R0193,2026-09-11,Laptop Stand,Online,AE,5,positive,Beautiful aluminium finish and very stable.
+R0194,2026-09-12,Keyboard,Store,AE,1,negative,The wireless receiver drops out constantly. I will not buy from this shop again.
+R0195,2026-09-12,Keyboard,Online,AE,4,positive,"Excellent value, my typing has honestly improved."
+R0196,2026-09-12,Monitor,Store,UK,5,positive,"Fantastic monitor for the price, and the stand is sturdy."
+R0197,2026-09-12,Monitor,Store,JO,5,positive,"Perfect for work and gaming, no ghosting at all. Arrived earlier than expected."
+R0198,2026-09-12,Laptop Stand,Online,ES,3,neutral,"Hace lo que promete, sin más."
+R0199,2026-09-12,Laptop Stand,Online,MX,3,neutral,"Cumple su función, nada del otro mundo."
+R0200,2026-09-13,Keyboard,Online,EG,1,negative,الجودة سيئة ولا أنصح بالشراء أبدا
+R0201,2026-09-13,Keyboard,Store,JO,4,positive,"Excellent quality and fast shipping, highly recommend! Arrived earlier than expected."
+R0202,2026-09-13,Monitor,Online,AE,5,positive,"Fantastic monitor for the price, and the stand is sturdy. Packaging was great too."
+R0203,2026-09-13,Webcam,Online,JO,3,neutral,"Does the basics, the clip is a bit loose."
+R0204,2026-09-13,Webcam,Online,UK,1,negative,Video is grainy and the microphone picks up echo. Packaging was crushed.
+R0205,2026-09-14,Headphones,Online,UK,1,negative,The left earcup stopped working after two weeks. Terrible quality. Support never replied.
+R0206,2026-09-14,Keyboard,Online,JO,4,positive,"Excellent value, my typing has honestly improved. Arrived earlier than expected."
+R0207,2026-09-14,Keyboard,Online,JO,5,positive,التوصيل كان سريعا والمنتج مطابق للوصف، شكرا لكم
+R0208,2026-09-14,Monitor,Online,FR,2,negative,"Une perte d'argent, le produit ne fonctionne plus."
+R0209,2026-09-14,Monitor,Store,MX,5,positive,"Recomiendo el monitor al cien por cien, calidad excelente por el precio."
+R0210,2026-09-14,Laptop Stand,Store,BE,2,negative,"Le service client ne répond jamais, je veux un remboursement."
+R0211,2026-09-14,Laptop Stand,Online,MX,5,positive,"Recomiendo el soporte para portátil al cien por cien, calidad excelente por el precio."
+R0212,2026-09-15,Headphones,Online,UK,3,neutral,Fit is okay and the battery is average.
+R0213,2026-09-15,Headphones,Online,FR,5,positive,"Franchement impressionné, ça dépasse mes attentes."
+R0214,2026-09-15,Monitor,Online,BE,5,positive,"Excellent rapport qualité-prix, je rachèterais sans hésiter."
+R0215,2026-09-15,Laptop Stand,Online,AE,5,positive,"Sturdy, folds flat, and my neck pain is gone. Support answered within an hour."
+R0216,2026-09-15,Laptop Stand,Online,BE,3,neutral,Livraison dans les temps et produit conforme à la description.
+R0217,2026-09-15,Laptop Stand,Online,BE,3,neutral,"Ni bon ni mauvais, il fait le travail."
+R0218,2026-09-15,Webcam,Online,ES,5,positive,"Recomiendo la cámara web al cien por cien, calidad excelente por el precio."
+R0219,2026-09-16,Headphones,Online,SA,4,positive,راضٍ تماما عن السماعات، الأداء مثالي
+R0220,2026-09-16,Headphones,Online,BE,4,positive,"Je recommande vivement le casque, qualité au rendez-vous."
+R0221,2026-09-16,Keyboard,Online,FR,5,positive,"Je recommande vivement le clavier, qualité au rendez-vous."
+R0222,2026-09-16,Monitor,Online,US,5,positive,Setup took two minutes and the image quality is superb. Support answered within an hour.
+R0223,2026-09-16,Monitor,Online,UK,1,negative,It flickers constantly and gives me a headache after an hour. Packaging was crushed.
+R0224,2026-09-16,Laptop Stand,Store,US,5,positive,"Sturdy, folds flat, and my neck pain is gone."
+R0225,2026-09-16,Laptop Stand,Store,JO,5,positive,Beautiful aluminium finish and very stable. Packaging was great too.
+R0226,2026-09-16,Webcam,Store,JO,3,neutral,"Does the basics, the clip is a bit loose."
+R0227,2026-09-16,Webcam,Online,UK,3,neutral,"Does the basics, the clip is a bit loose."
+R0228,2026-09-17,Headphones,Online,US,5,positive,The sound is crisp and the battery lasts for days. Love them. Arrived earlier than expected.
+R0229,2026-09-17,Keyboard,Online,UK,5,positive,"Typing feels fantastic, the keys are quiet and responsive. Packaging was great too."
+R0230,2026-09-17,Monitor,Online,MX,5,positive,"Superó mis expectativas, volvería a comprarlo."
+R0231,2026-09-17,Monitor,Online,JO,1,negative,"Backlight bleed is awful, I am returning it. Support never replied."
+R0232,2026-09-17,Laptop Stand,Store,FR,3,neutral,"Produit moyen, rien d'exceptionnel mais ça marche."
+R0233,2026-09-17,Webcam,Online,FR,4,positive,"Franchement impressionné, ça dépasse mes attentes."
+R0234,2026-09-17,Webcam,Online,MX,5,positive,"Recomiendo la cámara web al cien por cien, calidad excelente por el precio."
+R0235,2026-09-18,Keyboard,Store,AE,1,negative,تجربة سيئة جدا، المنتج توقف عن العمل بعد أسبوعين
+R0236,2026-09-18,Keyboard,Online,US,4,positive,Great build quality and the backlight is lovely. Support answered within an hour.
+R0237,2026-09-18,Laptop Stand,Online,EG,3,neutral,لا بأس به مقابل السعر، لا أكثر
+R0238,2026-09-18,Webcam,Store,AE,2,negative,Constant lag and the image looks washed out. Support never replied.
+R0239,2026-09-18,Webcam,Online,UK,4,positive,"Exceeded my expectations, five stars. Support answered within an hour."
+R0240,2026-09-18,Webcam,Online,US,2,negative,"The driver crashes on every call, useless. I will not buy from this shop again."
+R0241,2026-09-18,Webcam,Online,AE,5,positive,"Plug and play, and my colleagues say I look great. Arrived earlier than expected."
+R0242,2026-09-19,Headphones,Store,AE,3,neutral,اشتريت السماعات والنتيجة عادية، لا شيء مميز
+R0243,2026-09-19,Monitor,Online,UK,1,negative,It flickers constantly and gives me a headache after an hour. Support never replied.
+R0244,2026-09-19,Laptop Stand,Online,JO,2,negative,Wobbles badly and the rubber pads fell off. Support never replied.
+R0245,2026-09-19,Laptop Stand,Store,JO,3,neutral,تجربة متوسطة، فيه مميزات وفيه عيوب
+R0246,2026-09-20,Keyboard,Online,EG,3,neutral,المنتج عادي، يؤدي الغرض فقط
+R0247,2026-09-20,Keyboard,Online,FR,5,positive,"Excellent rapport qualité-prix, je rachèterais sans hésiter."
+R0248,2026-09-20,Laptop Stand,Online,AE,5,positive,Beautiful aluminium finish and very stable.
+R0249,2026-09-20,Webcam,Store,ES,3,neutral,"Cumple su función, nada del otro mundo."
+R0250,2026-09-20,Webcam,Store,FR,1,negative,"Qualité décevante, je ne recommande pas."
+R0251,2026-09-21,Headphones,Store,US,1,negative,"Battery barely lasts three hours, nothing like advertised. Packaging was crushed."
+R0252,2026-09-21,Keyboard,Store,BE,3,neutral,Livraison dans les temps et produit conforme à la description.
+R0253,2026-09-21,Monitor,Store,EG,2,negative,الجودة سيئة ولا أنصح بالشراء أبدا
+R0254,2026-09-21,Webcam,Online,UK,3,neutral,Image is okay in daylight but weak at night.
+R0255,2026-09-21,Webcam,Online,AE,5,positive,Autofocus is fast and the microphone is clear. Packaging was great too.
+R0256,2026-09-22,Headphones,Store,US,5,positive,"Noise cancelling is excellent, perfect for my commute. Arrived earlier than expected."
+R0257,2026-09-22,Webcam,Store,SA,3,neutral,تجربة متوسطة، فيه مميزات وفيه عيوب
+R0258,2026-09-22,Webcam,Store,US,3,neutral,"Works fine for meetings, nothing fancy."
+R0259,2026-09-23,Headphones,Online,UK,5,positive,"Noise cancelling is excellent, perfect for my commute."
+R0260,2026-09-23,Keyboard,Online,UK,3,neutral,"Average keyboard, comfortable enough."
+R0261,2026-09-23,Monitor,Online,JO,5,positive,الجودة عالية جدا والسعر مناسب، أنا سعيد بالشراء
+R0262,2026-09-23,Laptop Stand,Store,BE,4,positive,"Livraison rapide et produit conforme, je suis ravi."
+R0263,2026-09-24,Headphones,Store,BE,5,positive,"Très satisfait de mon achat, le produit fonctionne parfaitement."
+R0264,2026-09-24,Headphones,Store,BE,1,negative,Très déçu par le casque : le produit est tombé en panne après deux semaines.
+R0265,2026-09-24,Headphones,Online,JO,1,negative,ما عجبني أبدا، الجودة أقل بكتير من المتوقع
+R0266,2026-09-24,Keyboard,Online,AE,4,positive,"Great value for money, very happy. Arrived earlier than expected."
+R0267,2026-09-24,Monitor,Store,JO,5,positive,تجربة ممتازة مع الشاشة، أنصح الجميع بالشراء
+R0268,2026-09-24,Laptop Stand,Online,JO,4,positive,"Sturdy, folds flat, and my neck pain is gone. Support answered within an hour."
+R0269,2026-09-24,Laptop Stand,Online,JO,4,positive,"Sturdy, folds flat, and my neck pain is gone."
+R0270,2026-09-24,Webcam,Online,AE,1,negative,خسارة فلوس، لا يستحق السعر
+R0271,2026-09-25,Headphones,Online,US,1,negative,The left earcup stopped working after two weeks. Terrible quality. Support never replied.
+R0272,2026-09-25,Keyboard,Online,ES,3,neutral,"Es normal, ni bueno ni malo, por ese precio está bien."
+R0273,2026-09-25,Laptop Stand,Online,EG,3,neutral,المنتج عادي، يؤدي الغرض فقط
+R0274,2026-09-25,Laptop Stand,Online,UK,3,neutral,"Does what it should, no complaints and no praise."
+R0275,2026-09-26,Headphones,Store,UK,4,positive,"Super comfortable, I wore them for six hours straight with no ear fatigue. Support answered within an hour."
+R0276,2026-09-26,Headphones,Online,US,1,negative,Sound is tinny and the ear pads hurt after an hour.
+R0277,2026-09-26,Headphones,Online,AE,1,negative,"Poor quality, nothing like the photos. Support never replied."
+R0278,2026-09-26,Keyboard,Store,UK,5,positive,"Solid keyboard, the layout felt natural from day one. Arrived earlier than expected."
+R0279,2026-09-26,Keyboard,Online,SA,5,positive,الجودة عالية جدا والسعر مناسب، أنا سعيد بالشراء
+R0280,2026-09-26,Keyboard,Online,BE,5,positive,"Excellent rapport qualité-prix, je rachèterais sans hésiter."
+R0281,2026-09-26,Monitor,Store,SA,5,positive,تجربة ممتازة مع الشاشة، أنصح الجميع بالشراء
+R0282,2026-09-26,Monitor,Online,JO,1,negative,The screen arrived with dead pixels and support was unhelpful. I will not buy from this shop again.
+R0283,2026-09-26,Webcam,Online,MX,1,negative,"Una pérdida de dinero, no funciona bien."
+R0284,2026-09-26,Webcam,Store,US,1,negative,Arrived with a cracked lens and awful packaging. I will not buy from this shop again.
+R0285,2026-09-27,Headphones,Online,AE,1,negative,Sound is tinny and the ear pads hurt after an hour. I will not buy from this shop again.
+R0286,2026-09-27,Keyboard,Store,AE,4,positive,"Excellent value, my typing has honestly improved. Arrived earlier than expected."
+R0287,2026-09-27,Monitor,Store,UK,5,positive,Colours are vibrant and the picture is incredibly sharp.
+R0288,2026-09-27,Monitor,Store,US,3,neutral,"Picture is fine, the stand wobbles a little."
+R0289,2026-09-27,Laptop Stand,Online,ES,5,positive,"Envío rápido y todo llegó perfecto, muy satisfecho."
+R0290,2026-09-27,Laptop Stand,Online,US,4,positive,Beautiful aluminium finish and very stable. Packaging was great too.
+R0291,2026-09-27,Webcam,Online,UK,3,neutral,"Does the basics, the clip is a bit loose."
+R0292,2026-09-28,Headphones,Online,EG,5,positive,منتج ممتاز وخدمة عملاء محترمة وسريعة
+R0293,2026-09-28,Monitor,Online,AE,1,negative,It flickers constantly and gives me a headache after an hour. Packaging was crushed.
+R0294,2026-09-28,Laptop Stand,Online,ES,5,positive,"Excelente relación calidad-precio, ¡me encanta!"
+R0295,2026-09-29,Keyboard,Store,UK,5,positive,"Exceeded my expectations, five stars."
+R0296,2026-09-29,Monitor,Online,JO,2,negative,It flickers constantly and gives me a headache after an hour. Support never replied.
+R0297,2026-09-29,Webcam,Online,AE,1,negative,Arrived with a cracked lens and awful packaging. I will not buy from this shop again.
+R0298,2026-09-30,Headphones,Online,FR,2,negative,"Le service client ne répond jamais, je veux un remboursement."
+R0299,2026-09-30,Keyboard,Online,AE,3,neutral,"Does the job, although the backlight is dim."
+R0300,2026-09-30,Laptop Stand,Online,EG,4,positive,تجربة ممتازة مع حامل اللابتوب، أنصح الجميع بالشراء

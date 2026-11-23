@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sentiment Analysis</title>
+<style>
+:root{--bg:#eef1f5;--panel:#fff;--ink:#16202e;--mute:#5d6b7d;--line:#d3dae4;--pos:#0f766e;--neu:#8a6212;--neg:#b4234b;--posbg:#d9f0ec;--neubg:#f6ebd3;--negbg:#f8dde5;--acc:#1f3a8a;--onacc:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1520;--panel:#171f2d;--ink:#e6ebf3;--mute:#93a0b3;--line:#2a3547;--pos:#4fd1c0;--neu:#e2b35a;--neg:#f07a9a;--posbg:#12332f;--neubg:#35290f;--negbg:#3a1522;--acc:#8fa8ff;--onacc:#0f1520}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Tahoma,"Noto Sans Arabic",sans-serif;font-variant-numeric:tabular-nums}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 56px}
+header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between;margin-bottom:16px}
+h1{font-size:26px;margin:0;letter-spacing:-.01em}
+h2{font-size:16px;margin:0 0 8px}h3{font-size:14px;margin:16px 0 6px;color:var(--mute);font-weight:600}
+#status{font-size:13px;color:var(--mute)}
+#status b{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--neu);margin-right:6px}
+#status.ready b{background:var(--pos)}#status.down b{background:var(--neg)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;margin-bottom:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.tabs button{border:0;background:none;padding:8px 14px;font:inherit;color:var(--mute);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--acc);font-weight:700}
+textarea{width:100%;min-height:140px;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:10px;resize:vertical}
+button,select,input[type=search],input[type=text],a.btn{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:7px 12px;text-decoration:none;display:inline-block}
+button,a.btn{cursor:pointer}
+button.primary{background:var(--acc);border-color:var(--acc);color:var(--onacc);font-weight:700}
+button:disabled{opacity:.55;cursor:not-allowed}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+label{color:var(--mute);font-size:14px}
+.hint{color:var(--mute);font-size:13px;margin-top:8px}
+.err{color:var(--neg);font-weight:600;margin-top:10px}
+.bar{display:flex;height:28px;border-radius:4px;overflow:hidden;border:1px solid var(--line);margin:8px 0}
+.bar div{display:flex;align-items:center;padding-left:8px;font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden}
+.b-pos{background:var(--posbg);color:var(--pos)}.b-neu{background:var(--neubg);color:var(--neu)}.b-neg{background:var(--negbg);color:var(--neg)}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;color:var(--mute);font-size:14px}.stats b{color:var(--ink);font-size:18px;display:block}
+.ins{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.ins li{padding:8px 12px;border-left:4px solid var(--acc);background:var(--bg);border-radius:0 4px 4px 0}
+.ins .good{border-color:var(--pos)}.ins .warn{border-color:var(--neu)}
+.wrap{overflow:auto;border:1px solid var(--line);border-radius:4px;max-height:520px;margin-top:10px}
+.wrap.free{max-height:none;margin-top:0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--panel);white-space:nowrap}
+td.txt{min-width:240px;max-width:460px}
+.chip{display:inline-block;padding:1px 9px;border-radius:10px;font-weight:700;font-size:13px;white-space:nowrap}
+.meter{position:relative;width:100px;height:8px;background:var(--line);border-radius:4px;margin-top:6px}
+.meter i{position:absolute;top:0;bottom:0;border-radius:4px}
+.meter:after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--mute)}
+.cols{display:flex;flex-wrap:wrap;gap:16px}.cols>div{flex:1 1 300px;min-width:0}
+.ex{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.ex li{padding:6px 10px;border:1px solid var(--line);border-radius:4px;font-size:14px}.ex small{color:var(--mute);display:block}
+.prog{margin-top:12px}.prog .track{height:10px;background:var(--line);border-radius:5px;overflow:hidden}.prog .fill{height:100%;width:0;background:var(--acc);transition:width .4s}
+.up{color:var(--pos);font-weight:700}.down{color:var(--neg);font-weight:700}
+.pager{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:14px;color:var(--mute)}
+svg text{fill:var(--mute);font-size:11px}
+[hidden]{display:none!important}
+details.clean{margin:.6rem 0;font-size:.9rem}details.clean summary{cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Sentiment analysis</h1>
+  <div id="status" role="status"><b></b><span>Checking model…</span></div>
+</header>
+
+<section id="enginebox">
+  <div class="row" style="margin-top:0">
+    <label>Model <select id="engine" aria-label="Sentiment model"></select></label>
+    <label id="ollama-wrap" hidden>Ollama translation model <select id="ollama-model" aria-label="Ollama translation model"></select></label>
+    <button id="ollama-refresh" hidden>Refresh list</button>
+  </div>
+  <div class="hint" id="enginehint"></div>
+  <div class="hint" id="ollamahint" style="color:var(--neu)" hidden></div>
+</section>
+
+<div class="hint" id="cleannote" style="margin:-.4rem 0 .8rem">Data cleaning is automatic before every analysis: text is normalized (spacing, HTML, links, hidden characters, stretched letters, Arabic marks; capitals, punctuation and emojis are kept), then empty reviews, empty columns and duplicate rows are removed. The results show what changed, and the original wording of changed rows is kept in a “…_original” column.</div>
+
+<section>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t-text" aria-selected="true">Text</button>
+    <button role="tab" id="t-file" aria-selected="false">Table</button>
+    <button role="tab" id="t-bulk" aria-selected="false">Bulk</button>
+    <button role="tab" id="t-hist" aria-selected="false">History</button>
+  </div>
+
+  <div id="p-text">
+    <textarea id="texts" dir="auto" aria-label="Texts to analyze" placeholder="One text per line. Arabic and English both work.&#10;I love this phone, the camera is amazing!&#10;الخدمة كانت سيئة جدا والتوصيل متأخر"></textarea>
+    <div class="row"><input type="text" id="n-text" placeholder="Name this analysis (optional)" aria-label="Analysis name"><button class="primary" id="go-text">Analyze text</button></div>
+  </div>
+
+  <div id="p-file" hidden>
+    <input type="file" id="file" accept=".csv,.tsv,.txt,.xlsx,.xls,.json" aria-label="Choose a table file">
+    <div id="cfg" class="row" hidden>
+      <label>Text column <select id="col"></select></label>
+      <label>Group by <select id="grp"></select></label>
+      <label>Date column <select id="dat"></select></label>
+      <input type="text" id="n-file" placeholder="Name (optional)" aria-label="Analysis name">
+      <button class="primary" id="go-file">Analyze table</button>
+    </div>
+    <div class="hint" id="fileinfo">CSV, TSV, Excel or JSON, up to 5,000 rows. For bigger data or several files use Bulk.</div>
+  </div>
+
+  <div id="p-bulk" hidden>
+    <input type="file" id="bfiles" multiple accept=".csv,.tsv,.txt,.xlsx,.xls,.json" aria-label="Choose one or more table files">
+    <div id="bcfg" class="row" hidden>
+      <label>Text column <select id="bcol"></select></label>
+      <label>Group by <select id="bgrp"></select></label>
+      <label>Date column <select id="bdat"></select></label>
+      <input type="text" id="n-bulk" placeholder="Name (optional)" aria-label="Analysis name">
+      <button class="primary" id="go-bulk">Start bulk analysis</button>
+    </div>
+    <div class="hint" id="binfo">Pick several files at once. Every file needs the same text column. Large jobs keep running on the server and are saved to History when they finish.</div>
+    <div class="prog" id="prog" hidden><div class="track"><div class="fill" id="progbar"></div></div><div class="hint" id="progtxt"></div></div>
+  </div>
+
+  <div id="p-hist" hidden>
+    <div id="histchart"></div>
+    <div class="wrap"><table id="histtbl"></table></div>
+    <div class="row"><button class="primary" id="cmp" disabled>Compare selected</button><span class="hint" id="cmphint" style="margin:0">Tick two analyses to compare them.</span></div>
+    <div id="cmpout"></div>
+  </div>
+  <div id="err" class="err" role="alert" hidden></div>
+</section>
+
+<section id="out" hidden>
+  <h2 id="runtitle"></h2>
+  <div class="hint" id="runmeta" style="margin-top:0"></div>
+  <div class="bar" id="bar" aria-label="Sentiment distribution"></div>
+  <div class="stats" id="stats"></div>
+  <ul class="ins" id="ins"></ul>
+  <div id="cleaning"></div>
+  <div id="trend"></div>
+  <div class="cols" id="groups"></div>
+  <div class="cols" id="examples"></div>
+  <h3>All rows</h3>
+  <div class="row" style="margin-top:0">
+    <input type="search" id="q" placeholder="Search rows" aria-label="Search rows">
+    <select id="flt" aria-label="Filter by label"><option value="">All labels</option><option>Positive</option><option>Neutral</option><option>Negative</option></select>
+    <select id="srt" aria-label="Sort rows"><option value="original">Original order</option><option value="score_desc">Most positive first</option><option value="score_asc">Most negative first</option></select>
+    <a class="btn" id="dl" download>Download CSV</a>
+  </div>
+  <div class="wrap"><table id="tbl"></table></div>
+  <div class="pager"><button id="prev">Previous</button><span id="pginfo"></span><button id="next">Next</button></div>
+  <div class="hint">Score runs from −1 (very negative) to +1 (very positive). Net sentiment is the percentage of positive rows minus the percentage of negative rows. Confidence is the model’s certainty in its top answer.</div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cls=l=>l==="Positive"?"pos":l==="Negative"?"neg":"neu";
+const sgn=(x,d=2)=>(x>=0?"+":"−")+Math.abs(x).toFixed(d);
+const when=iso=>new Date(iso).toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"});
+const showErr=m=>{const e=$("err");e.textContent=m||"";e.hidden=!m};
+
+async function api(url,opts){
+  const r=await fetch(url,opts);let j={};try{j=await r.json()}catch{}
+  if(!r.ok)throw new Error(typeof j.detail==="string"?j.detail:`Request failed (${r.status})`);
+  return j;
+}
+async function busy(btn,label,fn){
+  showErr("");const old=btn.textContent;btn.disabled=true;btn.textContent=label;
+  try{return await fn()}catch(e){showErr(e.message);return null}finally{btn.disabled=false;btn.textContent=old}
+}
+
+// ---- models: all load in the background; pick one for each analysis
+let ENGINES=[],chosen=null,ollamaLoaded=false,ollamaMsg="";
+function renderEngines(h){
+  ENGINES=h.engines;
+  const ready=ENGINES.filter(e=>e.state==="ready");
+  if(!chosen||!ready.some(e=>e.id===chosen))chosen=(ready.find(e=>e.id===h.default_engine)||ready[0]||{}).id||null;
+  $("engine").innerHTML=ENGINES.map(e=>`<option value="${esc(e.id)}"${e.id===chosen?" selected":""}${e.state==="ready"?"":" disabled"}>${esc(e.name)}${e.state==="loading"?" (loading…)":e.state==="error"?" (failed to load)":""}</option>`).join("");
+  const cur=ENGINES.find(e=>e.id===chosen);
+  const bad=ENGINES.filter(e=>e.state==="error");
+  $("enginehint").textContent=(cur?cur.description:"No model is ready yet.")+(bad.length?" Could not load: "+bad.map(e=>e.name+" ("+e.error+")").join("; ")+".":"");
+  const tr=chosen==="translate";
+  $("ollama-wrap").hidden=!tr;$("ollama-refresh").hidden=!tr;$("ollamahint").hidden=!(tr&&ollamaMsg);$("ollamahint").textContent=ollamaMsg;
+  if(tr&&!ollamaLoaded)loadOllama().catch(()=>{ollamaLoaded=false});
+}
+$("engine").onchange=()=>{chosen=$("engine").value;renderEngines({engines:ENGINES,default_engine:chosen})};
+async function loadOllama(){
+  ollamaLoaded=true;
+  const j=await api("/api/ollama/models"),sel=$("ollama-model"),prev=sel.value;
+  sel.innerHTML=j.models.length?j.models.map(m=>`<option${m===(j.models.includes(prev)?prev:j.default)?" selected":""}>${esc(m)}</option>`).join(""):'<option value="">(none installed)</option>';
+  ollamaMsg=!j.reachable?j.error+" English text can still be analyzed, but other languages need Ollama.":!j.models.length?"Ollama is running but has no models. Install one with: ollama pull "+j.default:"";
+  renderEngines({engines:ENGINES,default_engine:chosen});
+}
+$("ollama-refresh").onclick=()=>busy($("ollama-refresh"),"Checking…",loadOllama);
+const eng=()=>({engine:$("engine").value||null,ollama_model:$("engine").value==="translate"?($("ollama-model").value||null):null});
+(function health(){
+  api("/api/health").then(h=>{
+    renderEngines(h);
+    const n=h.engines.filter(e=>e.state==="ready").length,loading=h.engines.some(e=>e.state==="loading"),s=$("status");
+    s.className=n===h.engines.length?"ready":"";
+    s.querySelector("span").textContent=loading?`Loading models… ${n} of ${h.engines.length} ready`:`${n} of ${h.engines.length} models ready`;
+    if(loading)setTimeout(health,2000);
+  }).catch(()=>{const s=$("status");s.className="down";s.querySelector("span").textContent="Server not reachable, retrying…";setTimeout(health,3000)});
+})();
+
+// ---- tabs
+const TABS=["text","file","bulk","hist"];
+function tab(w){TABS.forEach(t=>{$("t-"+t).setAttribute("aria-selected",t===w);$("p-"+t).hidden=t!==w});showErr("");if(w==="hist")loadHistory()}
+TABS.forEach(t=>$("t-"+t).onclick=()=>tab(t));
+
+// ---- text
+$("go-text").onclick=()=>busy($("go-text"),"Analyzing…",async()=>{
+  const texts=$("texts").value.split(/\r?\n/).map(t=>t.trim()).filter(Boolean);
+  if(!texts.length){showErr("Add at least one line of text.");return}
+  const j=await api("/api/analyze?include_rows=false",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({texts,name:$("n-text").value.trim()||null,...eng()})});
+  await openRun(j.run_id);
+});
+
+// ---- table + bulk share the column pickers
+async function preview(file,p){
+  const fd=new FormData();fd.append("file",file);
+  const j=await api("/api/preview",{method:"POST",body:fd});
+  const opt=(c,sel)=>`<option${sel?" selected":""}>${esc(c)}</option>`;
+  $(p+"col").innerHTML=j.columns.map(c=>opt(c,c===j.text_col)).join("");
+  $(p+"grp").innerHTML='<option value="">None</option>'+j.columns.map(c=>opt(c)).join("");
+  $(p+"dat").innerHTML='<option value="">None</option>'+j.columns.map(c=>opt(c,c===j.date_col)).join("");
+  return j;
+}
+function fields(fd,p,nameId){
+  fd.append("text_col",$(p+"col").value);
+  if($(p+"grp").value)fd.append("group_by",$(p+"grp").value);
+  if($(p+"dat").value)fd.append("date_col",$(p+"dat").value);
+  if($(nameId).value.trim())fd.append("name",$(nameId).value.trim());
+  const e=eng();if(e.engine)fd.append("engine",e.engine);if(e.ollama_model)fd.append("ollama_model",e.ollama_model);
+}
+
+$("file").onchange=async e=>{
+  const f=e.target.files[0];if(!f)return;$("cfg").hidden=true;
+  try{const j=await preview(f,"");showErr("");$("fileinfo").textContent=`${f.name}: ${j.rows.toLocaleString()} rows, ${j.columns.length} columns. Check the text column, then analyze.`;$("cfg").hidden=false}
+  catch(err){showErr(err.message)}
+};
+$("go-file").onclick=()=>busy($("go-file"),"Analyzing…",async()=>{
+  const fd=new FormData();fd.append("file",$("file").files[0]);fields(fd,"","n-file");
+  const j=await api("/api/analyze-file?include_rows=false",{method:"POST",body:fd});
+  await openRun(j.run_id);
+});
+
+$("bfiles").onchange=async e=>{
+  const fs=[...e.target.files];if(!fs.length)return;$("bcfg").hidden=true;
+  try{const j=await preview(fs[0],"b");showErr("");$("binfo").textContent=`${fs.length} file${fs.length>1?"s":""} selected. Columns were read from ${fs[0].name}; every file needs the chosen text column.`;$("bcfg").hidden=false}
+  catch(err){showErr(err.message)}
+};
+$("go-bulk").onclick=()=>busy($("go-bulk"),"Starting…",async()=>{
+  const fd=new FormData();[...$("bfiles").files].forEach(f=>fd.append("files",f));fields(fd,"b","n-bulk");
+  const {job_id}=await api("/api/bulk",{method:"POST",body:fd});
+  try{sessionStorage.setItem("bulkJob",job_id)}catch{}
+  await finishJob(job_id);
+});
+async function finishJob(id){
+  try{
+    const runId=await poll(id);
+    try{sessionStorage.removeItem("bulkJob")}catch{}
+    await openRun(runId);
+  }catch(e){
+    try{sessionStorage.removeItem("bulkJob")}catch{}
+    showErr(e.message);
+  }
+}
+// pick up a bulk job that was still running when the page was reloaded
+(function resume(){
+  let id=null;try{id=sessionStorage.getItem("bulkJob")}catch{}
+  if(id){tab("bulk");finishJob(id)}
+})();
+async function poll(id){
+  const box=$("prog");box.hidden=false;
+  try{
+    for(;;){
+      const j=await api("/api/jobs/"+id);
+      const pc=j.total?Math.round(j.done/j.total*100):0;
+      $("progbar").style.width=pc+"%";
+      $("progtxt").textContent=j.state==="analyzing"?`Analyzing ${j.done.toLocaleString()} of ${j.total.toLocaleString()} rows (${pc}%)`:j.state==="reading"?"Reading files…":"Waiting to start…";
+      if(j.state==="done")return j.run_id;
+      if(j.state==="error")throw new Error(j.error);
+      await new Promise(r=>setTimeout(r,1000));
+    }
+  }finally{box.hidden=true}
+}
+
+// ---- charts
+function lineChart(pts,label){
+  const W=640,H=180,pl=34,pr=10,pt=10,pb=26,iw=W-pl-pr,ih=H-pt-pb;
+  const X=i=>pl+(pts.length===1?iw/2:i*iw/(pts.length-1)),Y=v=>pt+(1-(v+1)/2)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}" style="width:100%;height:auto;display:block">`;
+  [1,0,-1].forEach(v=>{s+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line)" ${v===0?'stroke-dasharray="4 3"':""}/><text x="${pl-6}" y="${Y(v)+4}" text-anchor="end">${v>0?"+1":v<0?"−1":"0"}</text>`});
+  s+=`<path d="${pts.map((p,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(p.y).toFixed(1)).join(" ")}" fill="none" style="stroke:var(--acc);stroke-width:2"/>`;
+  pts.forEach((p,i)=>{s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="4" style="fill:${p.y>=0?"var(--pos)":"var(--neg)"}"><title>${esc(p.tip)}</title></circle>`});
+  s+=`<text x="${pl}" y="${H-6}">${esc(pts[0].x)}</text><text x="${W-pr}" y="${H-6}" text-anchor="end">${esc(pts[pts.length-1].x)}</text></svg>`;
+  return s;
+}
+
+// ---- results
+let cur=null;
+async function openRun(id){
+  const run=await api("/api/runs/"+id);
+  cur={run,offset:0,limit:50,total:0};
+  renderRun(run);await loadRows();
+  $("out").hidden=false;$("out").scrollIntoView({behavior:"smooth",block:"start"});
+  if(!$("p-hist").hidden)loadHistory();
+}
+function groupTable(title,items,note){
+  return `<div><h3>${esc(title)}</h3><div class="wrap free"><table><tr><th>Name</th><th>Rows</th><th>Average</th><th>Positive</th><th>Negative</th></tr>${items.map(i=>
+    `<tr><td dir="auto">${esc(i.name)}</td><td>${i.rows.toLocaleString()}</td><td>${sgn(i.avg)}</td><td>${Math.round(i.pos_pct)}%</td><td>${Math.round(i.neg_pct)}%</td></tr>`).join("")}</table></div>${note?`<div class="hint">${esc(note)}</div>`:""}</div>`;
+}
+function exList(title,items){
+  return `<div><h3>${esc(title)}</h3>${items.length?`<ul class="ex">${items.map(e=>`<li dir="auto">${esc(e.text)}<small>${sgn(e.score)}${e.group?", "+esc(e.group):""}</small></li>`).join("")}</ul>`:'<div class="hint">None.</div>'}</div>`;
+}
+function renderRun(run){
+  const s=run.summary,n=s.scored,st=s.stats;
+  $("runtitle").textContent=run.name;
+  $("runmeta").textContent=`Saved ${when(run.created_at)}. ${s.rows.toLocaleString()} rows${run.files.length>1?` from ${run.files.length} files`:""}.${run.model?" Model: "+run.model+".":""}`;
+  $("bar").innerHTML=["Positive","Neutral","Negative"].map(l=>{const p=s.label_pct[l];return p>0?`<div class="b-${cls(l)}" style="width:${p}%">${p>=12?l+" "+Math.round(p)+"%":Math.round(p)+"%"}</div>`:""}).join("");
+  const card=(v,l)=>`<span><b>${v}</b>${l}</span>`;
+  $("stats").innerHTML=card(n.toLocaleString(),"rows scored")+card(sgn(st.mean),"average score")+card((s.net_sentiment>=0?"+":"−")+Math.abs(s.net_sentiment).toFixed(0),"net sentiment")+card(sgn(st.median),"median")+card(st.std.toFixed(2),"spread (std dev)")+card(s.avg_confidence==null?"–":Math.round(s.avg_confidence*100)+"%","avg confidence")+card(s.labels.Positive+" / "+s.labels.Neutral+" / "+s.labels.Negative,"positive / neutral / negative");
+  $("ins").innerHTML=s.insights.map(i=>`<li class="${i.level}">${esc(i.text)}</li>`).join("");
+  const cl=s.cleaning,removed=cl?cl.rows_before-cl.rows_after:0;
+  $("cleaning").innerHTML=cl&&cl.enabled?`<details class="clean"><summary>Data cleaning: ${cl.rows_before.toLocaleString()} rows in, ${cl.rows_after.toLocaleString()} analyzed${removed?` (${removed.toLocaleString()} removed)`:""}</summary>
+    <ul class="ex"><li>Empty text: ${cl.empty_text.toLocaleString()}</li><li>Missing value in another column: ${cl.missing_values.toLocaleString()}</li><li>Duplicates: ${cl.duplicates_removed.toLocaleString()}</li><li>Text normalized: ${(cl.normalized||0).toLocaleString()} rows${cl.original_column?` (originals in “${esc(cl.original_column)}”)`:""}</li>${cl.columns_dropped.length?`<li>Empty columns dropped: ${cl.columns_dropped.map(esc).join(", ")}</li>`:""}</ul>
+    ${cl.examples.length?`<div class="hint">Examples of removed or changed rows (row numbers count data rows, not the header):</div><ul class="ex">${cl.examples.map(e=>`<li dir="auto">${esc(e.reason)}, row ${e.row}${e.source?" of "+esc(e.source):""}${e.text?": "+esc(e.text):""}${e.after!=null?" → "+esc(e.after):""}</li>`).join("")}</ul>`:""}</details>`:"";
+  const tr=s.trend;
+  $("trend").innerHTML=tr?`<h3>Average sentiment by ${tr.unit} (${esc(s.date_col)})</h3>`+lineChart(tr.points.map(p=>({x:p.label,y:p.avg,tip:`${p.label}: avg ${sgn(p.avg)}, ${p.rows} rows, ${Math.round(p.neg_pct)}% negative`})),"Average sentiment over time"):"";
+  let g="";
+  if(s.by_group)g+=groupTable("By "+s.by_group.column,s.by_group.items,s.by_group.truncated?"Showing the 50 largest groups.":"");
+  if(s.by_language)g+=groupTable("By language",s.by_language);
+  if(s.by_source)g+=groupTable("By file",s.by_source);
+  $("groups").innerHTML=g;
+  $("examples").innerHTML=exList("Most positive",s.top_positive)+exList("Most negative",s.top_negative);
+  $("dl").href=`/api/runs/${run.id}/export.csv`;
+}
+async function loadRows(){
+  const p=new URLSearchParams({offset:cur.offset,limit:cur.limit,sort:$("srt").value});
+  if($("flt").value)p.set("label",$("flt").value);
+  if($("q").value.trim())p.set("q",$("q").value.trim());
+  const j=await api(`/api/runs/${cur.run.id}/rows?${p}`);
+  cur.total=j.total;drawRows(j.rows);
+}
+function drawRows(rows){
+  const cols=cur.run.columns,tc=cur.run.text_col,hasLang=rows[0]&&rows[0].language!==undefined,hasTr=rows.some(r=>r.english_text||r.translation_status==="failed");
+  const head="<tr>"+cols.map(c=>`<th>${esc(c)}</th>`).join("")+"<th>Sentiment</th><th>Score</th><th>Confidence</th>"+(hasLang?"<th>Language</th>":"")+(hasTr?"<th>English translation</th>":"")+"</tr>";
+  const body=rows.map(r=>{
+    const k=cls(r.sentiment_label),s=r.sentiment_score;
+    return "<tr>"+cols.map(c=>`<td${c===tc?' class="txt"':""} dir="auto">${esc(r[c])}</td>`).join("")+
+      `<td><span class="chip b-${k}">${esc(r.sentiment_detail)}</span></td><td>${sgn(s)}<div class="meter"><i style="${s>=0?"left:50%":"right:50%"};width:${Math.abs(s)*50}%;background:var(--${s>=0?"pos":"neg"})"></i></div></td><td>${r.confidence==null?"":Math.round(r.confidence*100)+"%"}</td>`+(hasLang?`<td>${esc(r.language)}</td>`:"")+(hasTr?`<td class="txt" dir="ltr">${r.translation_status==="failed"?"(translation failed)":esc(r.english_text)}</td>`:"")+"</tr>";
+  }).join("");
+  $("tbl").innerHTML=head+(body||`<tr><td colspan="${cols.length+4}">No rows match.</td></tr>`);
+  const a=cur.total?cur.offset+1:0,b=Math.min(cur.offset+cur.limit,cur.total);
+  $("pginfo").textContent=`${a.toLocaleString()}–${b.toLocaleString()} of ${cur.total.toLocaleString()}`;
+  $("prev").disabled=cur.offset===0;$("next").disabled=b>=cur.total;
+}
+$("prev").onclick=()=>{cur.offset=Math.max(0,cur.offset-cur.limit);loadRows()};
+$("next").onclick=()=>{cur.offset+=cur.limit;loadRows()};
+let timer;const reload=()=>{cur.offset=0;loadRows()};
+$("q").oninput=()=>{clearTimeout(timer);timer=setTimeout(reload,300)};
+$("flt").onchange=reload;$("srt").onchange=reload;
+
+// ---- history and comparison
+let selected=new Set();
+async function loadHistory(){
+  const {runs}=await api("/api/runs");
+  selected=new Set();updateCmp();$("cmpout").innerHTML="";
+  const chron=[...runs].reverse();
+  $("histchart").innerHTML=chron.length>=2?`<h3>Average sentiment across saved analyses</h3>`+lineChart(chron.map(r=>({x:when(r.created_at),y:r.avg_score,tip:`${r.name}: avg ${sgn(r.avg_score)}, net ${r.net_sentiment}, ${r.rows} rows`})),"Average sentiment per saved analysis"):"";
+  $("histtbl").innerHTML=runs.length?`<tr><th></th><th>Name</th><th>Saved</th><th>Rows</th><th>Average</th><th>Net</th><th>Positive</th><th>Negative</th><th></th></tr>`+runs.map(r=>
+    `<tr><td><input type="checkbox" data-id="${r.id}" aria-label="Select ${esc(r.name)}"></td><td dir="auto">${esc(r.name)}<div class="hint" style="margin:0">${esc(r.kind)}${r.model?" · "+esc(r.model):""}${r.files.length?", "+esc(r.files.slice(0,2).join(", "))+(r.files.length>2?" and "+(r.files.length-2)+" more":""):""}</div></td><td>${when(r.created_at)}</td><td>${r.rows.toLocaleString()}</td><td>${sgn(r.avg_score)}</td><td>${r.net_sentiment>=0?"+":"−"}${Math.abs(r.net_sentiment).toFixed(0)}</td><td>${Math.round(r.pos_pct)}%</td><td>${Math.round(r.neg_pct)}%</td><td style="white-space:nowrap"><button data-open="${r.id}">Open</button> <button data-del="${r.id}">Delete</button></td></tr>`).join(""):'<tr><td>No saved analyses yet. Run one from the Text, Table or Bulk tab and it will appear here.</td></tr>';
+  $("histtbl").querySelectorAll("input[data-id]").forEach(c=>c.onchange=()=>{c.checked?selected.add(+c.dataset.id):selected.delete(+c.dataset.id);updateCmp()});
+  $("histtbl").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>busy(b,"Opening…",()=>openRun(+b.dataset.open)));
+  $("histtbl").querySelectorAll("[data-del]").forEach(b=>b.onclick=async()=>{
+    if(!confirm("Delete this analysis and all its rows? This cannot be undone."))return;
+    try{await api("/api/runs/"+b.dataset.del,{method:"DELETE"});if(cur&&cur.run.id===+b.dataset.del){$("out").hidden=true;cur=null}loadHistory()}catch(e){showErr(e.message)}
+  });
+}
+function updateCmp(){
+  $("cmp").disabled=selected.size!==2;
+  $("cmphint").textContent=selected.size===2?"Ready to compare. The older analysis is used as the baseline.":`Tick two analyses to compare them (${selected.size} selected).`;
+}
+const delta=(d,nd,invert)=>`<span class="${(invert?-d:d)>0?"up":(invert?-d:d)<0?"down":""}">${d>0?"+":d<0?"−":""}${Math.abs(d).toFixed(nd)}</span>`;
+$("cmp").onclick=()=>busy($("cmp"),"Comparing…",async()=>{
+  const [a,b]=[...selected];
+  const j=await api(`/api/compare?base=${a}&latest=${b}`);
+  const row=(l,o,nd,inv,suffix="")=>`<tr><td>${l}</td><td>${o.base.toFixed(nd)}${suffix}</td><td>${o.latest.toFixed(nd)}${suffix}</td><td>${delta(o.delta,nd,inv)}${suffix}</td></tr>`;
+  let h=`<h3>Earlier: ${esc(j.base.name)} (${when(j.base.created_at)}${j.base.model?", "+esc(j.base.model):""}) → Later: ${esc(j.latest.name)} (${when(j.latest.created_at)}${j.latest.model?", "+esc(j.latest.model):""})</h3><ul class="ins">${j.insights.map(i=>`<li class="${i.level}">${esc(i.text)}</li>`).join("")}</ul>`;
+  h+=`<div class="wrap free" style="margin-top:12px"><table><tr><th>Measure</th><th>Earlier</th><th>Later</th><th>Change</th></tr>${row("Average score",j.avg,3)}${row("Net sentiment",j.net,1)}${row("Positive share",j.pos_pct,1,false,"%")}${row("Negative share",j.neg_pct,1,true,"%")}${row("Rows scored",j.rows,0)}</table></div>`;
+  if(j.groups&&j.groups.items.length)h+=`<h3>Change by ${esc(j.groups.column)}</h3><div class="wrap free"><table><tr><th>Name</th><th>Earlier</th><th>Later</th><th>Change</th></tr>${j.groups.items.map(g=>`<tr><td dir="auto">${esc(g.name)}</td><td>${sgn(g.base_avg)}</td><td>${sgn(g.latest_avg)}</td><td>${delta(g.delta,2)}</td></tr>`).join("")}</table></div>`+
+    ((j.groups.new.length||j.groups.dropped.length)?`<div class="hint">${j.groups.new.length?"Only in the later analysis: "+esc(j.groups.new.join(", "))+". ":""}${j.groups.dropped.length?"Only in the earlier analysis: "+esc(j.groups.dropped.join(", "))+".":""}</div>`:"");
+  $("cmpout").innerHTML=h;
+});
+</script>
+</body>
+</html>

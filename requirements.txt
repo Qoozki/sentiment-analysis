@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pandas
+openpyxl
+transformers>=4.48
+torch
+langdetect

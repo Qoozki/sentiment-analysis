@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+# local history (analysis results can contain customer text)
+data/*.db
+!data/.gitkeep
