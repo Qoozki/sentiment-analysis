@@ -1,6 +1,6 @@
 # Sentiment Analysis Platform
 
-FastAPI website and CLI for sentiment analysis of reviews (Arabic, English and 20+ other languages):
+FastAPI website for sentiment analysis of reviews (Arabic, English and 20+ other languages):
 quick analysis, bulk jobs over many files, saved history, and comparison between two analyses.
 
 ## Run
@@ -8,13 +8,6 @@ quick analysis, bulk jobs over many files, saved history, and comparison between
 ```bash
 pip install -r requirements.txt
 uvicorn app.main:app --reload        # http://127.0.0.1:8000   (API docs: /docs)
-```
-
-CLI (same cleaning and scoring, no server):
-
-```bash
-python -m app.presentation.cli reviews.csv --text-col review --group-by product
-python -m app.presentation.cli --demo
 ```
 
 ## Test
