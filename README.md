@@ -19,35 +19,6 @@ pytest
 
 Tests use a fake keyword engine, so no model is downloaded. `tests/fixtures/` holds the sample review files.
 
-## Layout
-
-```
-app/
-  domain/            what the system is: no frameworks, no I/O
-    entities/          Prediction, RunMeta, EngineSpec
-    value_objects/     CleanOptions, sentiment scale and label rule
-    repositories/      ports (interfaces): RunRepository, EngineRepository, ModelCatalog
-    errors.py
-  application/       what the system does
-    use_cases/         one class per operation (analyze texts, bulk, compare, history...)
-    services/          cleaning, table parsing, summary + insights, comparison, analysis pipeline, jobs
-  infrastructure/    how it talks to the outside world
-    config/            Settings (all environment variables)
-    repositories/      SQLite history, in-memory engine registry
-    ml/                Hugging Face model, Ollama client, translate engine, language detection
-  presentation/      how people reach it
-    api/               FastAPI app factory, composition root, error mapping
-      routes/
-    schemas/           request bodies
-    cli.py             command-line entry point
-tests/               unit/, integration/, fixtures/
-ui/                  index.html (served at /)
-docs/                platform documentation, ARCHITECTURE.md
-data/                history.db (git-ignored)
-```
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the dependency rule and where each former file went.
-
 ## Configuration (environment variables)
 
 | Variable | Default | Meaning |
